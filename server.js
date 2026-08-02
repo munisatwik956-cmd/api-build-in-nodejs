@@ -2,13 +2,6 @@ import http from 'node:http'
 import getDataFromDB from './db.js'
 
 const PORT=800
-//req=request,res=respond
-// const server=http.createServer((req,res)=>{
-//     console.log(req.url)
-//     res.write("This is some data -1\n")
-//     res.write("This is some data -2\n")//to write 
-//     res.end("Hello from the server","utf8",()=>console.log("End the server"))
-// })//in .end method utf8 and function are option and utf8 is default function excutes atlast
 
 function sendJSONResponce(res,type,statusCode,payLoad){
 
@@ -61,7 +54,7 @@ const server=http.createServer(async (req,res)=>{
     const destinations=await getDataFromDB()
 
     console.log(`http://localhost:${PORT}${req.url}`)
-    //req.headres is obj that contains information about url can get by req.headers.host
+   
 
 
     const urlObj = new URL(req.url,`http://${req.headers.host}`)
@@ -73,10 +66,7 @@ const server=http.createServer(async (req,res)=>{
 
         let filteredData=getDataByQueryParameters(destinations,queryObj)
         
-        
-        // res.setHeader('Content-Type','application/json')
-        // res.statusCode=200
-        // res.end(JSON.stringify(destinations))
+   
         sendJSONResponce(res,'application/json',200,filteredData)
 
     }else if(req.url.startsWith('/api/continent')  && req.method==="GET"){
